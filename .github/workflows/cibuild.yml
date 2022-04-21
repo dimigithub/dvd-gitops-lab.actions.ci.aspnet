@@ -27,7 +27,7 @@ jobs:
       - name: Publish
         run: dotent publish --configuration ${{ env.configuration }} --output ${{runner.temp}}/artifact
       - name: Upload the artifacts
-        uses: actions/upload-artifact@2.2.4
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: Publish
           path: ${{runner.temp}}/artifact
