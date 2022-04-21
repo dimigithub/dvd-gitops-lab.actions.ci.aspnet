@@ -12,20 +12,27 @@ jobs:
       configuration : release
     runs-on: ubuntu-latest
     steps:
+      #Checkout sources
       - name: Checkout Sources
         uses: actions/checkout@v2
+      #Setup .Net
       - name: Setup .Net
         uses: actions/setup-dotnet@v1
         with:
            dotnet-version: 6.0.x
+      #Restore Nugets
       - name: Restore Nugets
         run: dotnet restore
+      #Build solution
       - name: Build
         run: dotnet build --no-restore --configuration ${{ env.configuration }}
+      #Test solution
       - name: Test
         run: dotnet test --no-build --verbosity normal --configuration ${{ env.configuration }}
+      #Publish artifacts
       - name: Publish
         run: dotnet publish --configuration ${{ env.configuration }} --output ${{runner.temp}}/artifact
+      #Upload Artifacts
       - name: Upload the artifacts
         uses: actions/upload-artifact@v2.2.4
         with:
